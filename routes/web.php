@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/wiki/sitemap', function () {
+    return view('sitemap');
+});
+
+Route::get('/wiki/{page:slug}', function (\App\Models\Page $page) {
+   return view('page', compact('page'));
+});
