@@ -12,8 +12,10 @@ return new class extends Migration {
 
             $table->text('title');
             $table->text('slug')->nullable();
-            $table->json('meta')->nullable();
+            $table->longText('summary')->nullable();
+            $table->string('image')->nullable();
             $table->longText('content')->nullable();
+            $table->json('meta')->nullable();
 
             $table->boolean('published')->default(false);
 

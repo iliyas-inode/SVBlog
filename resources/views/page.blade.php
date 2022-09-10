@@ -1,6 +1,7 @@
 <?php
 $slug = basename($_SERVER["REQUEST_URI"]);
 $url = 'http://staging.evoteapp.com/api/wiki/'.$slug;
+//$url = 'http://localhost:8000/api/wiki/'.$slug;
 
 $page = json_decode(file_get_contents($url), true);
 if (empty($page) || empty($page['published']))

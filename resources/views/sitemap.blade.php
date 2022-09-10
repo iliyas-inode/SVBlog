@@ -1,8 +1,10 @@
 <?php
 $app_name = 'SecuredVoting';
 $url = 'http://staging.evoteapp.com/api/wiki/sitemap';
+//$url = 'http://localhost:8000/api/wiki/sitemap';
 $pages = json_decode(file_get_contents($url), true);
 $base_url = "https://securedvoting.com/wiki";
+//$base_url = "http://localhost:8000/wiki";
 ?>
 
     <!DOCTYPE html>
