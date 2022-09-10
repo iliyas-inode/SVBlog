@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->redirectTo('/admin');
 });
 
 Route::get('/wiki/sitemap', function () {
     return view('sitemap');
 });
 
-Route::get('/wiki/{page:slug}', function (\App\Models\Page $page) {
+Route::get('/wiki/{page}', function ($page) {
    return view('page', compact('page'));
 });

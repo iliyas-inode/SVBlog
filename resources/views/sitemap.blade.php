@@ -1,20 +1,17 @@
-@php
-        $app_name = 'SecuredVoting';
-        $base_url = url('wiki');
-        $pages = \App\Models\Page::wherePublished(true)->latest()->pluck('title', 'slug');
-@endphp
+<?php
+$app_name = 'SecuredVoting';
+$url = 'http://staging.evoteapp.com/api/wiki/sitemap';
+$pages = json_decode(file_get_contents($url), true);
+$base_url = "https://securedvoting.com/wiki";
+?>
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title><?php echo 'Sitemap | '.$app_name ?></title>
-{{--    <meta name="author" content="name" />--}}
-{{--    <meta name="description" content="description" />--}}
-{{--    <meta name="keywords" content="keywords,here" />--}}
-{{--    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>--}}
     <script src="https://cdn.tailwindcss.com"></script>
     <!--Replace with your tailwind.css once created-->
     <style type="text/tailwindcss">
@@ -36,7 +33,7 @@
             <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
                 <img src="https://securedvoting.com/online-voting-system/img/secured-voting-logo.png"
                      alt="<?php echo $app_name ?>"
-                    class="w-40" />
+                     class="w-40" />
             </a>
         </div>
     </div>
@@ -46,13 +43,15 @@
 <div class="container w-full md:max-w-3xl mx-auto my-20 bg-white py-8 rounded-lg shadow">
     <div class="w-full grid grid-col-3 px-4 md:px-6 text-gray-800 leading-normal">
         <?php
-            foreach ($pages as $slug => $title) {
-                ?>
+        if (!empty($pages)) {
+        foreach ($pages as $slug => $title) {
+            ?>
         <a href="<?php echo $base_url.'/'.$slug ?>">
                 <?php echo $title ?>
         </a>
-        <?php
-            }
+            <?php
+        }
+        }
         ?>
     </div>
 </div>

@@ -1,33 +1,21 @@
-@php
-    $slug = basename($_SERVER["REQUEST_URI"]);
-    $url = 'http://localhost:8000/api/wiki/'.$slug;
+<?php
+$slug = basename($_SERVER["REQUEST_URI"]);
+$url = 'http://staging.evoteapp.com/api/wiki/'.$slug;
 
-    // Initialize a CURL session.
-    $ch = curl_init();
+$page = json_decode(file_get_contents($url), true);
+if (empty($page) || empty($page['published']))
+    header("location: /");
+$app_name = 'SecuredVoting';
+?>
 
-    // Return Page contents.
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-    //grab URL and pass it to the variable.
-    curl_setopt($ch, CURLOPT_URL, $url);
-
-    $result = curl_exec($ch);
-    die($result);
-//    $page = json_decode(file_get_contents('http://localhost:8000/api/wiki/'.$slug), true);
-    $app_name = 'SecuredVoting';
-@endphp
-
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title><?php echo $page['title'].' | '.$app_name ?></title>
-{{--    <meta name="author" content="name" />--}}
     <meta name="description" content="<?php echo $page['meta']['description'] ?>" />
-{{--    <meta name="keywords" content="keywords,here" />--}}
-{{--    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>--}}
     <script src="https://cdn.tailwindcss.com"></script>
     <!--Replace with your tailwind.css once created-->
     <style type="text/tailwindcss">
@@ -59,7 +47,7 @@
             <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
                 <img src="https://securedvoting.com/online-voting-system/img/secured-voting-logo.png"
                      alt="<?php echo $app_name ?>"
-                    class="w-40" />
+                     class="w-40" />
             </a>
         </div>
     </div>
@@ -70,7 +58,7 @@
     <div class="w-full space-y-6 px-4 md:px-6 text-gray-800 leading-normal" style="font-family:Georgia,serif;">
         <!--Post Content-->
         <?php echo $page['content']; ?>
-        <!--/ Post Content-->
+            <!--/ Post Content-->
     </div>
 </div>
 <!--/container-->
