@@ -18,7 +18,7 @@ Route::get('/wiki/sitemap', function () {
     return \App\Models\Page::wherePublished(true)->latest()->pluck('title', 'slug');
 });
 Route::get('/wiki/{page:slug}', function (\App\Models\Page $page) {
-    return response()->json($page);
+    return new \App\Http\Resources\PageResource($page);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

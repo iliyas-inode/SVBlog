@@ -46,8 +46,13 @@ class PageResource extends Resource
                         ->disabled()
                         ->unique(Page::class, 'slug', fn($record) => $record),
 
-                    Textarea::make('meta.description')
+                    Textarea::make('summary')
+                        ->label('Description')
                         ->required()
+                        ->columnSpan('full'),
+
+                    FileUpload::make('image')
+                        ->image()
                         ->columnSpan('full'),
 
                     RichEditor::make('content')

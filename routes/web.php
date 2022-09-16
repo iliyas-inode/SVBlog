@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return response()->redirectTo('/admin');
+//    return response()->redirectTo('/admin');
+    return view('welcome');
 });
 
 Route::get('/wiki/sitemap', function () {
